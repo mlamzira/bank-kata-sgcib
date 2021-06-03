@@ -8,6 +8,10 @@ public class Balance {
     this.cents = cents;
   }
 
+  public Balance plus(Amount amount) {
+    return new Balance(cents + amount.cents);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
