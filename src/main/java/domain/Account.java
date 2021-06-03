@@ -8,6 +8,10 @@ public class Account {
     balance = balance.plus(amount);
   }
 
+  public void withdraw(Amount amount) {
+    balance = balance.minus(amount);
+  }
+
   public Balance balance() {
     return balance;
   }

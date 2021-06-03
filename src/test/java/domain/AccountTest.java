@@ -32,4 +32,14 @@ class AccountTest {
 
     assertThat(account.balance()).isEqualTo(new Balance(2000L));
   }
+
+  @Test
+  void account_balance_should_be_5EUR_after_making_a_withdrawal_of_5EUR() {
+    Account account = new Account();
+    account.deposit(new Amount(1000L)); // initial deposit
+
+    account.withdraw(new Amount(500L));
+
+    assertThat(account.balance()).isEqualTo(new Balance(500L));
+  }
 }
