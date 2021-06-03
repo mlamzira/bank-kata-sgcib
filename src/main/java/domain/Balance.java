@@ -13,7 +13,7 @@ public class Balance {
   }
 
   public Balance minus(Amount amount) {
-    return new Balance(500L);
+    return new Balance(cents - amount.cents);
   }
 
   @Override

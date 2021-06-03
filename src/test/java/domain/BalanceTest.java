@@ -15,4 +15,14 @@ class BalanceTest {
 
     assertThat(actual).isEqualTo(new Balance(1500L));
   }
+
+  @Test
+  void balance_should_be_10EUR_after_subtracting_10EUR_from_an_initial_balance_of_20EUR() {
+    Balance initialBalance = new Balance(2000L);
+    Amount amount = new Amount(1000L);
+
+    Balance actual = initialBalance.minus(amount);
+
+    assertThat(actual).isEqualTo(new Balance(1000L));
+  }
 }
