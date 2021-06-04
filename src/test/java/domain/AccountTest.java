@@ -31,34 +31,34 @@ class AccountTest {
 
   @Test
   void account_balance_should_be_10EUR_after_making_a_deposit_of_10EUR() {
-    account.deposit(new Amount(1000L));
+    account.deposit(anAmountOf(1000L));
 
     assertThat(account.balance()).isEqualTo(new Balance(1000L));
   }
 
   @Test
   void account_balance_should_be_20EUR_after_making_two_deposits_of_10EUR() {
-    account.deposit(new Amount(1000L));
-    account.deposit(new Amount(1000L));
+    account.deposit(anAmountOf(1000L));
+    account.deposit(anAmountOf(1000L));
 
     assertThat(account.balance()).isEqualTo(new Balance(2000L));
   }
 
   @Test
   void account_balance_should_be_5EUR_after_making_a_withdrawal_of_5EUR() {
-    account.deposit(new Amount(1000L)); // initial deposit
+    account.deposit(anAmountOf(1000L)); // initial deposit
 
-    account.withdraw(new Amount(500L));
+    account.withdraw(anAmountOf(500L));
 
     assertThat(account.balance()).isEqualTo(new Balance(500L));
   }
 
   @Test
   void account_balance_should_be_empty_after_making_two_withdrawals_of_5EUR() {
-    account.deposit(new Amount(1000L)); // initial deposit
+    account.deposit(anAmountOf(1000L)); // initial deposit
 
-    account.withdraw(new Amount(500L));
-    account.withdraw(new Amount(500L));
+    account.withdraw(anAmountOf(500L));
+    account.withdraw(anAmountOf(500L));
 
     assertThat(account.balance()).isEqualTo(new Balance(0L));
   }
@@ -66,15 +66,35 @@ class AccountTest {
   @Test
   void should_print_one_deposit_statement() {
     account = new Account(fixedClock);
-    account.deposit(new Amount(1000L));
     FakeStatementPrinter statementPrinter = new FakeStatementPrinter();
 
+    account.deposit(anAmountOf(1000L));
     account.printStatement(statementPrinter);
 
     Balance balance = new Balance(1000L);
-    Amount amount = new Amount(1000L);
+    Amount amount = anAmountOf(1000L);
     assertThat(statementPrinter.lines)
         .containsExactly(new StatementLine(amount, balance, timestamp));
+  }
+
+  @Test
+  void should_print_one_withdrawal_statement() {
+    account = new Account(fixedClock);
+    account.deposit(anAmountOf(1000L));
+    FakeStatementPrinter statementPrinter = new FakeStatementPrinter();
+
+    account.withdraw(anAmountOf(500L));
+    account.printStatement(statementPrinter);
+
+    assertThat(statementPrinter.lines)
+        .containsExactly(
+            new StatementLine(anAmountOf(1000L), new Balance(1000L), timestamp),
+            new StatementLine(anAmountOf(-500L), new Balance(500L), timestamp)
+        );
+  }
+
+  private Amount anAmountOf(long l) {
+    return new Amount(l);
   }
 
   private static class FakeStatementPrinter implements StatementPrinter {

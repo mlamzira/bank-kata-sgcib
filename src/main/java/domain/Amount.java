@@ -8,6 +8,10 @@ public class Amount {
     this.cents = cents;
   }
 
+  public Amount negative() {
+    return new Amount(-cents);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

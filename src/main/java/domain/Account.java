@@ -20,6 +20,7 @@ public class Account {
 
   public void withdraw(Amount amount) {
     balance = balance.minus(amount);
+    history.addLine(amount.negative(), balance, clock.instant());
   }
 
   public void printStatement(StatementPrinter statementPrinter) {

@@ -10,9 +10,9 @@ public class StatementLine {
   private final Balance balance;
   private final Instant timestamp;
 
-  public StatementLine(Amount amount, Balance balance, Instant timestamp) {
+  public StatementLine(Amount amount, Balance currentBalance, Instant timestamp) {
     this.amount = amount;
-    this.balance = balance;
+    this.balance = currentBalance;
     this.timestamp = timestamp;
   }
 
