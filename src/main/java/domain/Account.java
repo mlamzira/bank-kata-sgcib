@@ -14,13 +14,16 @@ public class Account {
   }
 
   public void deposit(Amount amount) {
-    balance = balance.plus(amount);
-    history.addLine(amount, balance, clock.instant());
+    recordTransaction(amount);
   }
 
   public void withdraw(Amount amount) {
-    balance = balance.minus(amount);
-    history.addLine(amount.negative(), balance, clock.instant());
+    recordTransaction(amount.negative());
+  }
+
+  private void recordTransaction(Amount amount) {
+    balance = balance.plus(amount);
+    history.addLine(amount, balance, clock.instant());
   }
 
   public void printStatement(StatementPrinter statementPrinter) {
