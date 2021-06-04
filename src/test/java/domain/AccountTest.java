@@ -69,7 +69,7 @@ class AccountTest {
     FakeStatementPrinter statementPrinter = new FakeStatementPrinter();
 
     account.deposit(anAmountOf(1000L));
-    account.printStatement(statementPrinter);
+    account.printTo(statementPrinter);
 
     Balance balance = new Balance(1000L);
     Amount amount = anAmountOf(1000L);
@@ -84,7 +84,7 @@ class AccountTest {
     FakeStatementPrinter statementPrinter = new FakeStatementPrinter();
 
     account.withdraw(anAmountOf(500L));
-    account.printStatement(statementPrinter);
+    account.printTo(statementPrinter);
 
     assertThat(statementPrinter.lines)
         .containsExactly(

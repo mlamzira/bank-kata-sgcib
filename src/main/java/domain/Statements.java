@@ -13,7 +13,7 @@ public class Statements {
     return history.add(new StatementLine(amount, balance, instant));
   }
 
-  public void printStatement(StatementPrinter statementPrinter) {
+  public void printTo(StatementPrinter statementPrinter) {
     history.forEach(statementLine -> statementLine.printTo(statementPrinter));
   }
 }

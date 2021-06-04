@@ -26,8 +26,8 @@ public class Account {
     history.addLine(amount, balance, clock.instant());
   }
 
-  public void printStatement(StatementPrinter statementPrinter) {
-    history.printStatement(statementPrinter);
+  public void printTo(StatementPrinter statementPrinter) {
+    history.printTo(statementPrinter);
   }
 
   public Balance balance() {
